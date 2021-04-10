@@ -3,9 +3,8 @@ package com.yc.aspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,6 +17,7 @@ import java.util.Date;
 
 @Aspect//切面类:  你要增强的功能写到这里
 @Component//IOC注解已实现spring托管的功能
+@Order(value = 1)//表示增强调用的顺序谁的value小谁先运行 如果是环绕增强则小的先运行然后再运行大的再运行目标方法然后大的先结束小的后结束
 public class LogAspect {
 
     //切入点的声明         *表示修饰符  中间表示方法路径  (..)表示参数
@@ -39,7 +39,7 @@ public class LogAspect {
     //                throws-pattern?)
 
     //增强的声明
-    @Before("com.yc.aspect.LogAspect.addAndupate()")//要么写切入点表达式要么写切入点方法名
+   // @Before("com.yc.aspect.LogAspect.addAndupate()")//要么写切入点表达式要么写切入点方法名
     public void log() {
        System.out.println("==========前置增强的日志=================");
         Date d=new Date();
@@ -48,7 +48,7 @@ public class LogAspect {
         System.out.println("==========前置增强结束=================");
     }
 
-    @After("com.yc.aspect.LogAspect.addAndupate()")
+   // @After("com.yc.aspect.LogAspect.addAndupate()")
     public void bye(JoinPoint jp){//spring是一个ioc容器，它可以使用di将程序运行的信息注入 joinponit
         System.out.println("===============bye==================");
         Object target=jp.getTarget();
@@ -63,12 +63,26 @@ public class LogAspect {
 
     }
 
-    @Around("execution(* com.yc.biz.Studentbiz.find(..))")
-    public Object compute(ProceedingJoinPoint pjp) throws Throwable {
+
+    //@Around("execution(* com.yc.biz.Studentbiz.find(..))")
+    public Object compute(ProceedingJoinPoint pjp) throws Throwable {//这是DI操作
+        System.out.println("compute1");
         long start=System.currentTimeMillis();
-        Object retVal=pjp.proceed();
+        Object retVal=pjp.proceed();//目标类的目标方法
         long end=System.currentTimeMillis();
-        System.out.println("用时:"+(end-start));
+        System.out.println("compute1用时:"+(end-start));
+        return retVal;
+    }
+
+
+
+    @Around("execution(* com.yc.biz.Studentbiz.find(..))")
+    public Object compute2(ProceedingJoinPoint pjp) throws Throwable {//这是DI操作
+        System.out.println("compute2");
+        long start=System.currentTimeMillis();
+        Object retVal=pjp.proceed();//目标类的目标方法
+        long end=System.currentTimeMillis();
+        System.out.println("compute2用时:"+(end-start));
         return retVal;
     }
 }

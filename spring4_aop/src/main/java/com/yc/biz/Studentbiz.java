@@ -19,6 +19,8 @@ import javax.annotation.Resource;
  */
 @Service
 public class Studentbiz implements Student{
+    @Autowired
+    @Qualifier("studentdaojpa")
     private Studentdao studentdao;
 
     public Studentbiz(Studentdao studentdao) {
@@ -31,13 +33,13 @@ public class Studentbiz implements Student{
     //@Inject//javax中的依赖注入，如果有多个对象(比如这里有 Studentdaojpa和Studentdaomy对象)
     //因为有多个对象可以注入,所以这里必须用@Named("studentdaojpa"),如果只有一个对象，则不需要
 
-    @Autowired//spring定义的//按类型注入
-    @Qualifier("studentdaojpa")//如果有多个对象(比如这里有 Studentdaojpa和Studentdaomy对象)
+    //@Autowired//spring定义的//按类型注入
+    //@Qualifier("studentdaojpa")//如果有多个对象(比如这里有 Studentdaojpa和Studentdaomy对象)
     //因为有多个对象可以注入,所以这里必须用@Named("studentdaojpa"),如果只有一个对象，则不需要
     //@Resource(name="studentdaojpa")//按名字注入
-    public void setStudentdao(Studentdao studentdao) {
+    /*public void setStudentdao(Studentdao studentdao) {
         this.studentdao = studentdao;
-    }
+    }*/
 
     public int add(String name){
         System.out.println("=================业务层==================");

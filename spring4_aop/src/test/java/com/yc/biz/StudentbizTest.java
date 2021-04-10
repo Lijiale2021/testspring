@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = MyAppConfig.class)
 public class StudentbizTest  {
 
-    //@Resource(name ="studentbiz")
-    @Autowired
+    //@Resource(name ="studentbiz")//先按名字如果没有同名的则按类型查找bean然后注入
+    @Autowired//只按类型注入
     private Student st;
 
     @Test
