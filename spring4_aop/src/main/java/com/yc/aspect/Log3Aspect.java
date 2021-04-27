@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect//切面类:  你要增强的功能写到这里
 @Component//IOC注解已实现spring托管的功能
-@Order(value = 122)
+@Order(value = 1)
 public class Log3Aspect {
     @Pointcut("execution(* com.yc.biz.Studentbiz.add(..))") // the pointcut expression  切入点表达式:那些方法上增加增强
     private void add() {} // the pointcut signature
@@ -22,12 +22,12 @@ public class Log3Aspect {
 
 
     @Around("execution(* com.yc.biz.Studentbiz.find(..))")
-    public Object compute(ProceedingJoinPoint pjp) throws Throwable {//这是DI操作
-        System.out.println("compute1");
+    public Object compute2(ProceedingJoinPoint pjp) throws Throwable {//这是DI操作
+        System.out.println("compute2");
         long start=System.currentTimeMillis();
         Object retVal=pjp.proceed();//目标类的目标方法
         long end=System.currentTimeMillis();
-        System.out.println("compute1用时:"+(end-start));
+        System.out.println("compute2用时:"+(end-start));
         return retVal;
     }
 

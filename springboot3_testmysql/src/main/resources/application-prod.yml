@@ -1,0 +1,15 @@
+logging:
+  level:
+    root: info
+  file:
+    path: ./logs
+    name: yclogs
+server:
+  servlet:
+    session:
+      timeout: 60000
+    context-path: /baidu
+  port: 9999
+yc:
+  tname: ljl
+  age: 22

@@ -1,0 +1,79 @@
+
+spring.datasource.driverClassName=xxxx
+spring.datasource.url=xxx
+spring.datasource.username=root
+spring.datasource.password=a
+
+
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnClass({ DataSource.class, EmbeddedDatabaseType.class })
+@ConditionalOnMissingBean(type = "io.r2dbc.spi.ConnectionFactory")
+@EnableConfigurationProperties(DataSourceProperties.class)
+@Import({ DataSourcePoolMetadataProvidersConfiguration.class, DataSourceInitializationConfiguration.class })
+public class DataSourceAutoConfiguration {
+
+}
+
+        ImportSelector接口的实现类 AutoConfigurationImportSelector  中的  ImportSelector 被谁调用???????
+        @Override
+	public String[] selectImports(AnnotationMetadata annotationMetadata) {
+		if (!isEnabled(annotationMetadata)) {
+			return NO_IMPORTS;
+		}
+		AutoConfigurationEntry autoConfigurationEntry = getAutoConfigurationEntry(annotationMetadata);
+		return StringUtils.toStringArray(autoConfigurationEntry.getConfigurations());
+	}
+
+
+
+
+1. SpringApplication.run()  ->  SpringApplication类的
+      316行:   refreshContext(context);   ->
+      397行:  refresh(context);
+      775行:  ((AbstractApplicationContext) applicationContext).refresh();
+                因为这里是一个web项目，所以使用的ApplicationContext为  boot.web.servlet.context.ServletWebServerApplicationContext
+ 2. 所以下一步查看  boot.web.servlet.context.ServletWebServerApplicationContext类.
+      142行     super.refresh()方法  ->
+ 3. super指调用 ServletWebServerApplicationContext类的父类AbstractApplicationContext的   refresh()方法
+     所以查看  AbstractApplicationContext类的源码:
+         528行:     invokeBeanFactoryPostProcessors(beanFactory);   这个方法启动工厂处理器以注册bean到容器
+         691行:    在invokeBeanFactoryPostProcessors()方法中
+             调用 PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
+             在这个方法的 130行  invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
+
+             286行:
+                   for (BeanFactoryPostProcessor postProcessor : postProcessors) {
+			           postProcessor.postProcessBeanFactory(beanFactory);
+		       }
+		       注意:  这里的 BeanFactoryPostProcessor是一个接口，
+它下面的 org.springframework.context.annotation.ConfigurationClassPostProcessor 类才是我们要看的.
+ 4. ConfigurationClassPostProcessor类的  postProcessBeanFactory(beanFactory); 方法中的
+      250行: 	processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);  处理有注解的Bean的定义
+      从processConfigBeanDefinitions()方法中的  307行开始解析  @Configuration注解了, 注意:
+          315行  parser.parse(candidates);
+                这里的parser是一个 ConfigurationClassParser 即对加了 @Configuration的类的解析器.
+                这里的  candidates是  274行读取的这些被 @Configuration注解的类.
+
+
+ 5.   parser是一个  org.springframework.context.annotation.ConfigurationClassParser类的对象
+      上面  parser.parse(candidates) 中 调用context.annotation.ConfigurationClassParser.doProcessConfigurationClass()方法处理ConfigurationClass:
+           从  167行  ->  199行  ->  242行  ->  sourceClass = doProcessConfigurationClass(configClass, sourceClass);  按类层次结构追踪  处理ConfigurationClass，
+                请具体分析以下这个源码： doProcessConfigurationClass(configClass, sourceClass)，在它里面，它处理了：
+                    1.  @PropertySource
+                    2. @ComponentScan
+                    3. @Import        注意这个， 与我们讲的  springboot中的  @Import(AutoConfigurationImportSelector.class) 相关
+                    4.  @ImportResource
+                    5. @Bean
+
+
+      6. 接上面的  3   对@Import的处理
+         302行  processImports(configClass, sourceClass, getImports(sourceClass), true);
+
+      到 544行， 遍历每个@Import标签，生成被注入的ImportSelector子类的实例
+             注意从  560行到  566行:
+    |               -> 对于普通ImportSelector，调用其selectImport()方法，筛掉exclude的，再嵌套processImports()，对需要被@Import的类的@Import注解进行处理
+    |               -> 对于DefferedImportSelector，只加入deferredImportSelectors列表中
+
+         特别是   569行   String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());   这里调用的就是 springboot中提到的注解了
+
+

@@ -11,8 +11,6 @@ public class Test {
 
         Object o=la.createProxy();
 
-        System.out.println(o);
-
         if (o instanceof StudentBiz){
             StudentBiz sb=(StudentBiz)o;
             sb.add("张三");//这里就会自动回调invoke方法

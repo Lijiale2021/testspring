@@ -1,0 +1,22 @@
+logging:
+  level:
+    root: info
+    org.springframework: warn
+    com.yc: info
+  file:
+    path: ./logs
+    name: yclogs
+server:
+  servlet:
+    session:
+      timeout: 60000
+    context-path: /mybank
+  port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/testBank?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: a
+swagger:
+  enabled: true

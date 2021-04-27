@@ -13,7 +13,7 @@ public class StudentbizTest  {
 
     //@Resource(name ="studentbiz")//先按名字如果没有同名的则按类型查找bean然后注入
     @Autowired//只按类型注入
-    private Student st;
+    private Studentbiz st;
 
     @Test
     public void testAdd() {

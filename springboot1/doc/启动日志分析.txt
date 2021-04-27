@@ -1,0 +1,31 @@
+ c.y.s.helloworld.Springboot1Application  : Starting Springboot1Application using Java 1.8.0_65 on PC-20201012VNQZ with PID 10660 (D:\IdeaProjects\testspring\springboot1\target\classes started by Administrator in D:\IdeaProjects\testspring)
+ No active profile set, falling back to default profiles: default
+o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-04-18 09:47:01.754  INFO 10660 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.45]
+ o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+ w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1438 ms
+o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+ o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+ c.y.s.helloworld.Springboot1Application  : Started Springboot1Application in 2.41 seconds (JVM running for 3.878)
+ o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-18 09:47:24.646  INFO 10660 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-18 09:47:24.646  INFO 10660 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+
+
+    spring容器接口
+    ApplicationContext AnnotationConfigApplicationContext
+                       WebApplicationContext     spring容器
+
+    8080 (http) with context path '': 表示上下文路径为空，即可以直接访问到控制器
+
+   因为引入了spring web依赖->  所以使用的web层框架为: springMVC
+   它的重点在于：springboot启动时，会先初始化前端控制器  dispatcherServlet  :
+          前端控制器启动时，加载spring容器
+                      web程序运行时，拦截所有的请求，根据请求的路径查找对应的路径配置,分发请求到对应的控制器
+
+    @GetMapping("/hello")   // 请求方式为  get   ,请求路径为:  /hello
+    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {   // @RequestParam请求的参数name
+        return String.format("Hello %s!", name);
+    }
+   /hello?name=ycinfo  ->  映射到 @RestController  注解的控制层类中找   /hello 配置的方法

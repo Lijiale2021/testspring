@@ -15,11 +15,10 @@ public class LogAspectcglib implements MethodInterceptor {
     }
 
     public Object createProxy(){
-        //创建
-        Enhancer enhancer=new Enhancer();
-        enhancer.setSuperclass(this.target.getClass());
-        enhancer.setCallback(this);
-        return enhancer.create();
+        Enhancer enhancer=new Enhancer();//用于生成代理对象
+        enhancer.setSuperclass(this.target.getClass());//设置父类
+        enhancer.setCallback(this);//设置回调用对象为本身
+        return enhancer.create();//创建代理对象
     }
 
 

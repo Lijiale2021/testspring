@@ -13,6 +13,9 @@
         <module>spring2_caltools</module>
         <module>spring3_myspringframework</module>
         <module>spring4_aop</module>
+        <module>spring_5_selfaop_jdkproxy</module>
+        <module>spring_6_selfaop_cglibproxy</module>
+        <module>spring7_tx</module>
     </modules>
 
     <properties>
@@ -76,6 +79,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.6</version>
         </dependency>
     </dependencies>
 

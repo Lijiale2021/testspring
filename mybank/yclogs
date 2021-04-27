@@ -1,0 +1,11 @@
+2021-04-27 19:26:40.268  INFO 16180 --- [main] com.yc.mybank.MybankApplicationTests     : Starting MybankApplicationTests using Java 1.8.0_221 on LiJiaLe with PID 16180 (started by Administrator in F:\testSpring\mybank)
+2021-04-27 19:26:40.277  INFO 16180 --- [main] com.yc.mybank.MybankApplicationTests     : No active profile set, falling back to default profiles: default
+2021-04-27 19:26:42.935  INFO 16180 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-04-27 19:26:43.865  INFO 16180 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-27 19:26:44.907  INFO 16180 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-27 19:26:45.141  INFO 16180 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-04-27 19:26:45.194  INFO 16180 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-04-27 19:26:45.239  INFO 16180 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-04-27 19:26:45.486  INFO 16180 --- [main] com.yc.mybank.MybankApplicationTests     : Started MybankApplicationTests in 5.685 seconds (JVM running for 6.897)
+2021-04-27 19:26:45.894  INFO 16180 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-04-27 19:26:45.908  INFO 16180 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

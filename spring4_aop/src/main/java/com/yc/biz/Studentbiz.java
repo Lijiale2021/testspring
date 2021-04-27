@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @create: 2021-04-04 14:47
  */
 @Service
-public class Studentbiz implements Student{
+public class Studentbiz {
     @Autowired
     @Qualifier("studentdaojpa")
     private Studentdao studentdao;

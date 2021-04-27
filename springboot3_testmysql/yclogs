@@ -1,0 +1,10 @@
+2021-04-24 09:41:20.828  INFO 2972 --- [main] s.s.Springboot3TestmysqlApplicationTests : Starting Springboot3TestmysqlApplicationTests using Java 1.8.0_221 on LiJiaLe with PID 2972 (started by Administrator in F:\testSpring\springboot3_testmysql)
+2021-04-24 09:41:20.834  INFO 2972 --- [main] s.s.Springboot3TestmysqlApplicationTests : No active profile set, falling back to default profiles: default
+2021-04-24 09:41:22.164  INFO 2972 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-24 09:41:22.492  INFO 2972 --- [main] s.s.Springboot3TestmysqlApplicationTests : Started Springboot3TestmysqlApplicationTests in 2.044 seconds (JVM running for 3.221)
+2021-04-24 09:41:22.819  INFO 2972 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-24 11:28:18.942  INFO 3132 --- [main] s.s.Springboot3TestmysqlApplicationTests : Starting Springboot3TestmysqlApplicationTests using Java 1.8.0_221 on LiJiaLe with PID 3132 (started by Administrator in F:\testSpring\springboot3_testmysql)
+2021-04-24 11:28:18.989  INFO 3132 --- [main] s.s.Springboot3TestmysqlApplicationTests : No active profile set, falling back to default profiles: default
+2021-04-24 11:28:20.271  INFO 3132 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-24 11:28:20.646  INFO 3132 --- [main] s.s.Springboot3TestmysqlApplicationTests : Started Springboot3TestmysqlApplicationTests in 2.067 seconds (JVM running for 3.176)
+2021-04-24 11:28:20.926  INFO 3132 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
